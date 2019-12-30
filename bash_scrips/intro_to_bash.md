@@ -100,9 +100,6 @@ project
 │   │   bar1.txt
 │   │   bar2.txt
 │   │   ...
-│   
-└───results
-    │   
 ```
 
 Here is what script.sh, which will do all these things for you, looks like: 
@@ -112,23 +109,23 @@ Here is what script.sh, which will do all these things for you, looks like:
 2 do 
 3   echo ${f} | python script.py
 4 done
-5 for f in */output_*
-6 do 
-7   mv ${f} results
-8 done
+5 for f in output_*
+6 mkdir results
+7 do 
+8   mv ${f} results
+9 done
 ```
 
 In line 1, we're telling the computer: for every file in the directory foo that ends with *.txt, do the following. 
 
-The `*` is called a `glob`, and basically it functions as a string matching pattern. Here, it will only loop through files that end with .txt. In line 5, it is used to indicate that we want to loop through the directory where script.sh lives. In line 5, we're also using it to say we only want to loop through files that begin with the string '_output'. The glob is one of the most useful and versatile tools in bash scripting, but be careful with using it! 
+The `*` is called a `glob`, and basically it functions as a string matching pattern. Here, it will only loop through files that end with .txt. In line 5, it is used to indicate that we want to loop through the directory where script.sh lives, but we only want to loop through files that begin with the string 'output_'. The glob is one of the most useful and versatile tools in bash scripting, but with great power comes great responsibility so be careful with how you use it! 
 
 In line 3 we're passing the variable `${f}` to the python script, which will look like `\home\path\to\project\foo\bar1.txt`. Now the python script has the path to the file it has to perform an operation on. 
 
 ## 5. Now you are ready to bash!
 
-Well not really. There's a lot more to learn, but this is already longer than I intended, and anyways the best way to learn is to do things for yourself. 
+Well not really. There's a lot more to learn, but this is already longer than I intended. Anyways the best way to learn is to do things for yourself. 
 
-I've included probably the most complicated bash script I've written, for reference if you want to check it out! I've also included the scripts it depends on, so you see how the whole passing variables to python works. And it's useful since it formats things in a way that is friendly for Compute Canada array jobs, which you might need eventually. 
 
 Happy coding! 
 
