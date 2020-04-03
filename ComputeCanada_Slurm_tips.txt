@@ -7,7 +7,7 @@ This is to avoid confusion with apostrophes/quotation marks.
 
 
 ################################
-How to log-in to compute canada?
+How to log-in to ComputeCanada?
 ################################
 You use the Secure-Shell protocol! Meaning that you input:
 ==> ssh -Y your_user_name@adress_of_computer
@@ -50,7 +50,7 @@ From there, you can write your scripts!
 How to write a job script?
 ################################
 You can see an example of a job script in the file "job_script.sh"
-You always need this line at the beginnig of your file:
+You always need this line at the begining of your file:
 ==> #!/bin/bash
 
 Then, you specify with which account you want to run your file.
@@ -59,7 +59,7 @@ Then, you specify with which account you want to run your file.
 Next, you specify the time you think your job will take (this run would take 1 day, 12 hours and 35 minutes:
 ==> #SBATCH --time=1-12:35
 Guessing the time is tricky. If your estimate is too low, your job will be aborted and you could technically
-loose all of your progress if your program only ouputs something at the end of your script.
+loose all of your progress if your program only outputs something at the end of your script.
 If your estimate is too high, your job will be queued for a long time before it runs as the supercomputers fit
 jobs in their schedules (long jobs are harder to squeeze in).
 
@@ -78,7 +78,7 @@ parameter space in a MCMC), having 8 cores is perfect but adding a 9th core wont
 Requesting 16 cores might speed up your job or could also do nothing, depending on how you setup your MPI.
 
 Next, you specify your email to get notified when your job starts/finishes or if it crashes/gets canceled.
-==> #SBATCH --mail-user=<your_adress_email>
+==> #SBATCH --mail-user=<your_email_adress>
 ==> #SBATCH --mail-type=ALL
 
 Next, you specify the memory you need:
@@ -86,8 +86,7 @@ Next, you specify the memory you need:
 or
 ==> #SBATCH --mem=30G
 Here mem refers to the memory of a node and mem-per-cpu is the memory of a core. Nodes have typically 125G
-of memory so definitly request less than that and modify these values if your job crashes because of memory
-issues.
+of memory so if your job crashes for memory reasons, request less than that.
 
 Next, you specify what you would input in your terminal to run your script. Maybe something like this:
 ==> mpiexec -n 8 python test.py
@@ -127,8 +126,8 @@ ran your script from there. Basically, any print statements in your scripts will
 ###############################
 How to test things in the supercomputer
 ###############################
-When you log in to the supercomputer, you are not running on very powerfull cores by default and you should abstain from
-running scripts. If you want to test things but you dont want to submit jobs as this process can be tedious since the jobs
+When you log in to the supercomputer, you are not running on very powerful cores by default and you should abstain from
+running scripts. If you want to test things but you don't want to submit jobs as this process can be tedious since the jobs
 can take some time before running, you might want to request an interactive job. You can do so by inputting in the terminal:
 ==>salloc --time=1:0:0 --ntasks=2 --mem-per-cpu=1024M --account=def-acliu
 Here, ntasks is the number of cores you want to test stuff. Usually, 2 is enough for me and these interactive jobs run
@@ -136,7 +135,7 @@ automatically.
 When the interactive job starts, you get transported to a new terminal and you can cancel the interactive job with Ctrl-d.
 Be careful as Ctrl-d will log you out of the supercomputer if you are not in an interactive job.
 
-Also, if you are a python user, I would suggest using Ipython to test things on the supercomputer and you usually dont need
+Also, if you are a python user, I would suggest using Ipython to test things on the supercomputer and you usually don't need
 interactive jobs to test small things (such as imports or short scripts).
 
 
@@ -171,7 +170,7 @@ Now, you will be requested to specify where you want miniconda to be installed. 
 ==> /home/henri/projects/def-acliu/henri/soft/miniconda3
 
 When miniconda is installed, you need to change your python path so the computer uses this version of python
-when you type somthing like "python test.py" in the terminal. First go to your home directory:
+when you type, for example, "python test.py" in the terminal. First go to your home directory:
 ==> cd
 Then edit once again your .bashrc file (I use nano) and add this line at the end of the file:
 ==> export PYTHONPATH=/home/henri/projects/def-acliu/henri/soft/miniconda3/bin/python
