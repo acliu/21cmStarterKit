@@ -1,0 +1,190 @@
+COMPUTE CANADA / SLURM TIPS
+
+**IMPORTANT**
+when I use the symbol "==> ", it means that you can input exactly what follows in your terminal or file.
+This is to avoid confusion with apostrophes/quotation marks.
+*************
+
+
+################################
+How to log-in to ComputeCanada?
+################################
+You use the Secure-Shell protocol! Meaning that you input:
+==> ssh -Y your_user_name@adress_of_computer
+For example, lets say that Henri wants to log in to the Cedar Supercomputer, he inputs:
+==> ssh -Y henri@cedar.computecanada.ca
+Next, you will be asked to input your password and you will be able to log in!
+
+Shortcut for Linux Users:
+Go to your home directory by typing "cd" in your terminal.
+Edit the file .bashrc with your favorite text editor (I use nano).
+Add this line at the end of your file (and be careful with spaces in .bashrc):
+==> alias this_can_be_anything='ssh -Y your_user_name@adress_of_computer'
+Then, in the terminal, input:
+==>source .bashrc
+This basically reloads the file and tells the computer about any new paths/aliases you added.
+For example, I have alias cedar='ssh -Y henri@cedar.computecanada.ca'
+This means that by typing "cedar" in my terminal, I automatically log in to cedar!
+By the way, you can alias any terminal input which is very convenient if you don't want to write the full thing every time!
+
+
+
+################################
+What to do when you are logged in?
+################################
+Once that you're in, by typing "ls" (list directories) in the terminal,
+you will see two important directories: projects and scratch. Here is how they work:
+
+You want to use projects for everything important that you want backed-up.
+Careful though as you probably don't have permissions to do stuff directly in projects so
+you will want to "cd" your way to your personal directory. For me, its "/home/henri/projects/def-acliu/henri".
+Starting from there, I usually setup a miniconda distribution.
+
+You want to use scratch for your jobs and the outputs of your jobs.
+"cd" your way to /scratch/jobs. For me, this looks like "/home/henri/scratch/jobs".
+From there, you can write your scripts!
+
+
+
+################################
+How to write a job script?
+################################
+You can see an example of a job script in the file "job_script.sh"
+You always need this line at the begining of your file:
+==> #!/bin/bash
+
+Then, you specify with which account you want to run your file.
+==> #SBATCH --account=def-acliu
+
+Next, you specify the time you think your job will take (this run would take 1 day, 12 hours and 35 minutes:
+==> #SBATCH --time=1-12:35
+Guessing the time is tricky. If your estimate is too low, your job will be aborted and you could technically
+loose all of your progress if your program only outputs something at the end of your script.
+If your estimate is too high, your job will be queued for a long time before it runs as the supercomputers fit
+jobs in their schedules (long jobs are harder to squeeze in).
+
+Next, you specify how many nodes/cores you want to use (This run uses 1 node and 16 cores on that node):
+==> #SBATCH --nodes=1
+==> #SBATCH --ntasks-per-nodes=16
+The supercomputer is made of a bunch of nodes and each of these nodes can have a bunch of cores.
+You can find the details on the computer's website. To get a sense of what these represents, a laptop usually
+has 2-4 cores. You have to check in the documentation the maximal number of cores per nodes and if you need more
+cores than that, you need a second node! Guessing how many cores you need is also tricky.
+You want to make sure that your program can use multiple cores (by using MPI for example).
+Something you want to avoid is having one core doing all the work the other cores doing nothing. In that case,
+adding more cores wont speed up the job!
+For example, if I am running a MPI job where 8 processes are happening (maybe 8 walkers are exploring a 
+parameter space in a MCMC), having 8 cores is perfect but adding a 9th core wont speed up your job by a lot.
+Requesting 16 cores might speed up your job or could also do nothing, depending on how you setup your MPI.
+
+Next, you specify your email to get notified when your job starts/finishes or if it crashes/gets canceled.
+==> #SBATCH --mail-user=<your_email_adress>
+==> #SBATCH --mail-type=ALL
+
+Next, you specify the memory you need:
+==> #SBATCH --mem-per-cpu=1000M
+or
+==> #SBATCH --mem=30G
+Here mem refers to the memory of a node and mem-per-cpu is the memory of a core. Nodes have typically 125G
+of memory so if your job crashes for memory reasons, request less than that.
+
+Next, you specify what you would input in your terminal to run your script. Maybe something like this:
+==> mpiexec -n 8 python test.py
+or simply
+==> python test.py
+Where if you use MPI, make sure that the number of cores you asked is equal to the number you input (8 in that
+example).
+
+#############################
+How to submit/manage your jobs
+#############################
+Once you have a .sh job file, you can submit it by inputting the following in the terminal (make sure you are still
+in your scratch/jobs directory):
+==> sbatch test_job.sh
+
+Now you can check your queued jobs by inputting:
+==> squeue -u $USER
+I have an alias in .bashrc to make this easier by simply inputting "queue". Don't forget that this is a new computer
+so your .bashrc file in your desktop computer is different than your .bashrc in the supercomputer.
+
+My alias to log in to the supercomputer is in my desktop .bashrc file
+My aliases to cancel/see jobs are in my supercomputer .bashrc file
+As always, don't forget to:
+==> source .bashrc
+
+You can cancel jobs by inputting:
+==>scancel ID_number_of_your_job
+You can find the ID number of your job by checking your queued jobs
+
+Finally, your job will create a slurm file! This file is basically what you would see in the terminal if you would have
+ran your script from there. Basically, any print statements in your scripts will end up in the slurm file!
+
+**For Anymore Information on Jobs, checkout https://docs.computecanada.ca/wiki/Running_jobs**
+
+
+
+###############################
+How to test things in the supercomputer
+###############################
+When you log in to the supercomputer, you are not running on very powerful cores by default and you should abstain from
+running scripts. If you want to test things but you don't want to submit jobs as this process can be tedious since the jobs
+can take some time before running, you might want to request an interactive job. You can do so by inputting in the terminal:
+==>salloc --time=1:0:0 --ntasks=2 --mem-per-cpu=1024M --account=def-acliu
+Here, ntasks is the number of cores you want to test stuff. Usually, 2 is enough for me and these interactive jobs run
+automatically.
+When the interactive job starts, you get transported to a new terminal and you can cancel the interactive job with Ctrl-d.
+Be careful as Ctrl-d will log you out of the supercomputer if you are not in an interactive job.
+
+Also, if you are a python user, I would suggest using Ipython to test things on the supercomputer and you usually don't need
+interactive jobs to test small things (such as imports or short scripts).
+
+
+
+###############################
+How to move files between computers
+###############################
+You need to use the Secure Copy Protocol. This is as easy as inputting the following in your DESKTOP TERMINAL:
+==> scp file_location file_destination
+Lets say I want to move the file test.py from my computer to cedar, I do:
+==> scp /home/henri/Documents/test.py henri@cedar.computecanada.ca:/home/henri/projects/def-acliu/henri/test.py
+And you need to supply your password.
+
+Now lets say I want to import a slurm file from cedar to my desktop computer:
+==> scp henri@cedar.computecanada.ca:/home/henri/scratch/jobs/slurm.out /home/henri/Documents/slurm.out
+And I will again need to supply my password
+
+
+###############################
+How to setup Miniconda
+###############################
+Reminder: you do not have "sudo" powers on the supercomputer. First, download the miniconda version
+you desire on the official website:  https://docs.conda.io/en/latest/miniconda.html
+Then, move the file from your computer on the supercomputer. I usually create a folder called "/soft"
+in "projects" so my scp looks like this:
+==> scp /home/henri/miniconda_3.sh henri@cedar.computecanada.ca:/home/henri/projects/def-acliu/henri/soft/miniconda_3.sh
+Then, log in to the supercomputer and move to the file location.
+Now input:
+==> bash miniconda_3.sh
+And select 'yes'
+Now, you will be requested to specify where you want miniconda to be installed. I chose:
+==> /home/henri/projects/def-acliu/henri/soft/miniconda3
+
+When miniconda is installed, you need to change your python path so the computer uses this version of python
+when you type, for example, "python test.py" in the terminal. First go to your home directory:
+==> cd
+Then edit once again your .bashrc file (I use nano) and add this line at the end of the file:
+==> export PYTHONPATH=/home/henri/projects/def-acliu/henri/soft/miniconda3/bin/python
+And you should also change your path to miniconda in case you install other things than python packages:
+==> export PATH=/home/henri/projects/def-acliu/henri/soft/miniconda3/bin
+
+You can save the file and close it. Dont forget to "source .bashrc"
+Your miniconda distribution should be working. Here are some test commands you can use in the terminal:
+
+To see which python you are using:
+==>which python
+This should return the path you specified.
+
+If you have another path in .bashrc, for example, I have ARES:
+==>export ARES=/home/henri/projects/def-acliu/henri/soft/ares
+To check a Environment Variable you added:
+==>echo $ARES
