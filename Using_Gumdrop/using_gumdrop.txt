@@ -1,0 +1,39 @@
+*********************
+Using Gumdrop
+*********************
+
+Access: ssh -Y <your username>@gumdrop.physics.mcgill.ca
+
+File transfer from your computer to Gumdrop:
+scp <location of local file> <your username>@gumdrop.physics.mcgill.ca:<location on Gumdrop where you want to put the file>
+
+Running jobs
+------------
+
+Jupyter notebooks:
+It's possible to have Gumdrop run a Jupyter notebook, and for you to manipulate the notebook from your computer as though you were running the computations locally!
+Follow the excellent instructions here: https://ljvmiranda921.github.io/notebook/2018/01/31/running-a-jupyter-notebook/
+
+Scripted jobs:
+If you plan to stay logged on (e.g., if you're running a very short script), you can just run the way you normally would.
+For example, you can do
+python <insert name of your script here>
+
+However, one of the nice things about running things on Gumdrop is that you get to just let things run after you've logged off!
+To do that, you want to do something like
+nohup python <insert name of your script here> >& <output log fname> &
+
+Let's disect this a little bit:
+* "nohup" tells Gumdrop not to kill your job when it's done ("no hang up").
+* The ">& <output log fname>" bit takes all the things that would usually be printed on your screen (any print statements or error messages) and puts them into the filename you specify (which can be anything).
+* The "&" symbol at the very end tells Gumdrop to run your job as a background process so that you can do other things on your command line (like run other jobs!)
+
+Checking on jobs
+----------------
+When you start something running like this, it'll print out a 5-digit PID ("Process ID"). Make note of this.
+If you type "top", you should see your process running with your PID. Press "q" to get out of "top".
+To kill a job, type "kill <PID>"
+
+
+
+
