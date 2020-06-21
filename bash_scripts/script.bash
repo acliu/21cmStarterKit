@@ -24,3 +24,4 @@ do
 
     mv ${d}/*.png plots 
 done
+
