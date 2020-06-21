@@ -1,6 +1,9 @@
 # A brief introduction to bash scripting
 
-This document serves as an intro to bash scripts that will give you the very basics. This subdirectory contains many examples of bash scripts that get into more complicated things, but assume some basic knowledge.
+By Joelle Begin, June 2020
+
+
+This document serves as an intro to bash scripts that will give you the very basics. The subdirectory `bash_scripts` contains many examples of bash scripts that get into more complicated things, but assume some basic knowledge.
 
 Warning: this probably only works for linux or mac so if you're running windows... sorry. 
 
@@ -128,5 +131,3 @@ Well not really. There's a lot more to learn, but this is already longer than I 
 
 
 Happy coding! 
-
--Joelle
