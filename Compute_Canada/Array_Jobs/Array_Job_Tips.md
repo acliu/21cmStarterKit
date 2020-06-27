@@ -109,3 +109,4 @@ So, with just two bash scripts, we've run 200 different jobs for every single fi
 With array jobs, what I've found the most important is _organization_. Make sure you format the input and output properly, such that the results of one of the array jobs won't delete the results of the others. 
 
 Array jobs are extremely useful when used properly, and can save a _lot_ of time. As with a lot of things, I learned this by googling around so if anyone finds a better way to do things, please add it to this directory!
+

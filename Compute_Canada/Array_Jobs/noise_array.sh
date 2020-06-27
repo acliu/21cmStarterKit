@@ -8,3 +8,4 @@
 f=$1 #reading filename
 
 echo tcf_noise_$f_$SLURM_ARRAY_TASK_ID.txt | mpiexec -n 70 python triangleCorrelation.py
+
