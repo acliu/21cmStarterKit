@@ -12,11 +12,12 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [Template script](#template_job_script.sh)
     * [GPUs](#GPUs_on_Compute_Canada.pdf)
     * [Array Jobs](#array_jobs)
+- [Parallel Computing](#parallel-computing)
+
 # Bash
 
 Here you'll find a basic intro to bash, as well as some sample bash scripts in the subdirectory 
 `bash_scripts`
-
 
 # Compute Canada
 
@@ -24,16 +25,24 @@ Resources for getting started with the Compute Canada supercomputers!
 
 ### ComputeCanada_Slurm_tips.txt
 
-An introduction to everything Compute Canada, from setting up your .bashrc and python environment, to submitting your first job.
+- An introduction to everything Compute Canada, from setting up your .bashrc and python environment, to submitting your first job.
 
 ### template_job_script.sh
 
-A template job script that contains most of the flags you need to include when you `sbatch` a job. 
+- A template job script that contains most of the flags you need to include when you `sbatch` a job. 
 
 ### GPUs_on_Compute_Canada.pdf
 
-A guide to using GPUs on Compute Canada. 
+- A guide to using GPUs on Compute Canada. 
 
 ### Array_Jobs
 
-Guide and sample scripts for running array jobs. 
+- Guide and sample scripts for running array jobs. 
+
+# Parallel Computing
+
+An introduction to parallel computing, an a template for parallelizing jobs with the MPI protocol. 
+
+# Using Gumdrop
+
+A guide for accessing and using Gumdrop. 
