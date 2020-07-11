@@ -41,7 +41,7 @@ Resources for getting started with the Compute Canada supercomputers!
 
 # Parallel Computing
 
-An introduction to parallel computing, an a template for parallelizing jobs with the MPI protocol. 
+An introduction to parallel computing, and a template for parallelizing jobs with the MPI protocol. 
 
 # Using Gumdrop
 
