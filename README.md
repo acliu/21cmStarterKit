@@ -4,7 +4,7 @@ The purpose of this repo is for us to have a place where we can put instructive 
 
 -Joelle
 
-## Submission instructions 
+# Submission instructions 
 
 - **Organization**: 
     * If you're submitting a new tutorial or document, first check if there are any existing subdirectories where it can go. Else, create a new subdirectory!
@@ -13,7 +13,7 @@ The purpose of this repo is for us to have a place where we can put instructive 
 - **Table of Contents**: Once you're done, add a section to the table of contents briefly explaining your document.
 - **Closing issues**: If your document resolves an issue, include something like "closes #10" in your pull request, which will automatically resolve the issue when it's merged. 
 
-## **Table of contents** 
+# **Table of contents** 
 
 - [Bash](#bash)
 - [Compute Canada](#compute-canada)
@@ -23,12 +23,12 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [Array Jobs](#array_jobs)
 - [Parallel Computing](#parallel-computing)
 
-# Bash
+## Bash
 
 Here you'll find a basic intro to bash, as well as some sample bash scripts in the subdirectory 
 `bash_scripts`
 
-# Compute Canada
+## Compute Canada
 
 Resources for getting started with the Compute Canada supercomputers!
 
@@ -48,10 +48,10 @@ Resources for getting started with the Compute Canada supercomputers!
 
 - Guide and sample scripts for running array jobs. 
 
-# Parallel Computing
+## Parallel Computing
 
 An introduction to parallel computing, and a template for parallelizing jobs with the MPI protocol. 
 
-# Using Gumdrop
+## Using Gumdrop
 
 A guide for accessing and using Gumdrop. 
