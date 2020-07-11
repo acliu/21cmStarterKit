@@ -4,6 +4,13 @@ The purpose of this repo is for us to have a place where we can put instructive 
 
 -Joelle
 
+## Submission instructions 
+
+- **Organization**: If you're submitting a new tutorial or document, first check if there are any existing subdirectories where it can go. Else, create a new subdirectory!
+- **Author statement**: Don't forget to put your name and date at the top of the document.
+- **Table of Contents**: Once you're done, add a section to the table of contents briefly explaining your document.
+- **Closing issues**: If your document resolves an issue, include something like "closes #10" in your pull request, which will automatically resolve the issue when it's merged. 
+
 ## **Table of contents** 
 
 - [Bash](#bash)
