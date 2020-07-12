@@ -22,6 +22,8 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [GPUs](#GPUs_on_Compute_Canada.pdf)
     * [Array Jobs](#array_jobs)
 - [Parallel Computing](#parallel-computing)
+- [Basics](#basics)
+    * [FFT](#FFT.pdf)
 
 ## Bash
 
@@ -55,3 +57,11 @@ An introduction to parallel computing, and a template for parallelizing jobs wit
 ## Using Gumdrop
 
 A guide for accessing and using Gumdrop. 
+
+## Basics
+
+Here are some documents and tutorials that cover basic topics. 
+
+### FFT.pdf 
+- A tutorial for using the FFT algorithm, as well as some common pitfalls to look out for. 
+
