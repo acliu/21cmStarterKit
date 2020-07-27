@@ -1,7 +1,7 @@
 """
 Simple example of use emcee to fit a linear data set with gaussian error bars.
 
-By Emma Klemets, modified from Adrian Liu's code and extensively commented. 
+By Emma Klemets, modified from Adrian Liu's code and extensively commented, which is from https://emcee.readthedocs.io/en/stable/tutorials/line/. 
 July 2020
 """
 
@@ -12,18 +12,22 @@ import emcee
 import matplotlib.pyplot as plt
 
 #first we need to set up the function that we are fitting
+
+#we are fitting for 2 parameters: a, b
 def log_likelihood(theta, x, y, yerr):
     a, b = theta
     model = a * x + b
     sigma2 = yerr ** 2
     return -0.5 * np.sum((y - model) ** 2 / sigma2 + np.log(sigma2))
 
+#removes any values outside of set bounds for a and b
 def log_prior(theta):
     a, b = theta
     if -1.0 < a < 5. and -5. < b < 5.:
         return 0.0 # the constant doesn't matter since MCMCs only care about *ratios* of probabilities
     return -np.inf # log(0) = -inf
 
+#log posterior
 def log_post(theta, x, y, yerr):
     lp = log_prior(theta)
     if not np.isfinite(lp):
@@ -42,8 +46,9 @@ num_iter = 3000 # number of iterations, or steps that the walkers take
 ndim = 2 # number of parameters we are fitting
 nwalkers = 32 # number of walkers
 
-#set a guess for each parameter
+#set a guess for each parameter, here a = 1, b = 4
 guess = np.array((1, 4)) 
+
 #initial position of walkers, taken as a small perturbation from the intial guess
 initial_pos = guess + 0.01 * np.random.randn(nwalkers, ndim) 
 
@@ -53,8 +58,10 @@ sampler = emcee.EnsembleSampler(nwalkers, ndim, log_post, args=(x_vals, y_vals, 
 # run the MCMC!
 sampler.run_mcmc(initial_pos, num_iter, progress=True)
 
-#Look at results
 
+#### Look at results ####
+
+#get the chain the MCMC created
 samples = sampler.get_chain()
 
 #make a trace plot for each parameter
@@ -80,7 +87,7 @@ fig = corner.corner(flat_samples, labels=labels, quantiles=[0.16, 0.5, 0.84])
 fig.suptitle('Triangle Plot')
 plt.show()
 
-#plot a sample of the parameter values and compare to the data
+#plot a sample of the function the parameter values result in and compare to the data
 inds = np.random.randint(len(flat_samples), size=100)
 x0 = np.linspace(-10, 10., 50)
 f, ax = plt.subplots(figsize=(6,4))
