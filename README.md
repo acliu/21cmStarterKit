@@ -22,7 +22,7 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [GPUs](#GPUs_on_Compute_Canada.pdf)
     * [Array Jobs](#array_jobs)
 - [Parallel Computing](#parallel-computing)
-- [MCMCs_with_emcee](#MCMCs-with-emcee)
+- [MCMCs with emcee](#MCMCs-with-emcee)
 
 ## Bash
 
