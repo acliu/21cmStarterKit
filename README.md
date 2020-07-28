@@ -22,6 +22,7 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [GPUs](#GPUs_on_Compute_Canada.pdf)
     * [Array Jobs](#array_jobs)
 - [Parallel Computing](#parallel-computing)
+- [MCMCs_with_emcee](#MCMCs-with-emcee)
 
 ## Bash
 
@@ -55,3 +56,8 @@ An introduction to parallel computing, and a template for parallelizing jobs wit
 ## Using Gumdrop
 
 A guide for accessing and using Gumdrop. 
+
+
+## MCMCs with emcee
+
+An introduction to running MCMCs with emcee, basic code for fitting and tips on how to look at results.
