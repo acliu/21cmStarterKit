@@ -1,0 +1,52 @@
+Tips for using emcee.   
+
+################################
+Set Up
+################################
+
+You need a log probability function, that takes in a array of values of the parameters being fitted, and returns the natural 
+log of the posterior probability for that array.
+	There is a number of ways this can be set up, for a bayesian approch we can use log_post = log_prior + log_likelihood
+
+You can choose the number of steps, number of walkers, an inital guess for each parameter being fit and the data to fit to.
+	In general, more walkers and more steps gives a better result, but this will also increase your run time. It takes some 
+	trial and error to find what the right balance of the two is needed for a particular fit.
+
+
+################################
+Looking at results
+################################
+
+# Trace Plots
+These plot the value of each parameter vs steps. You can see here the path of walker, and look for a good 'mix'. You want the 
+walkers to explore all the parameter space, but to be more dense near the expected values (if known). 
+
+For other ways to look at results, it is useful to flatten the chains, combining chains from all the walkers into one chain. In 
+this process it can also be efficent to thin the results by only taking one out of n steps, as well as removing 'burn in'. For 
+most of their steps, walkers should be in medium/high probability regions, but at the start the intial positions can be in low 
+probability regions and it takes time for the walkers to wander to a higher region. These steps at the start are call burn-in and 
+for good results they are usually removed.
+
+# Triangle (Corner) Plots
+A graph of 2D and 1D histograms of the parameters. This is done by marginalizing over all the parameters except those in the 
+histogram. With an MCMC chain this is simple, just ignore the dimensions of the chain that are not the parameters being plotted.
+
+==> corner.corner(flat_samples, labels, quantiles=[x])
+	flat_samples: flatten array from the MCMC chain
+	labels (optional): names of parameters 
+	quantiles (optional):  list of fractional quantiles to show on the 1-D histograms
+	More at https://corner.readthedocs.io/en/latest/api.html
+
+
+################################
+Miscellaneous
+################################
+
+- When using log probabilities, for really bad values that you want to have a 0 probability (like those out of range of a model), 
+  use -np.inf, as log(0) = -inf
+
+#Blobs
+Blobs are a way to save metadata associated with step and walker during the MCMC run. Then after the run, instead of just looking 
+at the results of the chain, you can look at the blob for a particular value you saved along the way, such as the value of the 
+log prior, or another function that depends on the fit parameters.
+	https://emcee.readthedocs.io/en/stable/user/blobs/#using-blobs-to-track-the-value-of-the-prior
