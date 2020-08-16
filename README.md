@@ -23,6 +23,9 @@ The purpose of this repo is for us to have a place where we can put instructive 
     * [Array Jobs](#array_jobs)
 - [Parallel Computing](#parallel-computing)
 - [MCMCs with emcee](#MCMCs-with-emcee)
+- [Basics](#basics)
+    * [FFT](#FFT.pdf)
+
 
 ## Bash
 
@@ -57,7 +60,13 @@ An introduction to parallel computing, and a template for parallelizing jobs wit
 
 A guide for accessing and using Gumdrop. 
 
-
 ## MCMCs with emcee
 
 An introduction to running MCMCs with emcee, basic code for fitting and tips on how to look at results.
+
+## Basics
+
+Here are some documents and tutorials that cover basic topics. 
+
+### FFT.pdf 
+- A tutorial for using the FFT algorithm, as well as some common pitfalls to look out for. 
