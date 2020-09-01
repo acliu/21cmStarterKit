@@ -108,12 +108,12 @@ project
 Here is what script.sh, which will do all these things for you, looks like: 
 ```bash
 0 #!/bin/bash
-1 for f in foo/*.txt
+1 for f in foo/*.txt 
 2 do 
 3   echo ${f} | python script.py
 4 done
-5 for f in output_*
-6 mkdir results
+5 mkdir results #making results directory
+6 for f in output_*
 7 do 
 8   mv ${f} results
 9 done
