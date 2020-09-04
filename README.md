@@ -25,6 +25,7 @@ The purpose of this repo is for us to have a place where we can put instructive 
 - [MCMCs with emcee](#MCMCs-with-emcee)
 - [Basics](#basics)
     * [FFT](#FFT.pdf)
+    * [Power Spectra](#PowerSpectra.pdf)
 
 
 ## Bash
@@ -70,3 +71,6 @@ Here are some documents and tutorials that cover basic topics.
 
 ### FFT.pdf 
 - A tutorial for using the FFT algorithm, as well as some common pitfalls to look out for. 
+
+### PowerSpectra.pdf
+- Document introducing mathematical formalism of power spectra and correlation functions, as well as some excercises. 
